@@ -12,6 +12,4 @@ player.on('timeupdate', throttle(function(data) {
 const saveTime = localStorage.getItem("videoplayer-current-time");
 //перевіряю чи в змінній є якісь дан
 
-if(saveTime) {
-   player.setCurrentTime(JSON.parse(saveTime));
-}
+   saveTime & player.setCurrentTime(saveTime);

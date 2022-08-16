@@ -8,7 +8,7 @@ const userData = {};
 const fillFormFields = () => {
    const userDataFromLocalStorage = localStorageApi.load('formData');
 
-   if (userDataFromLocalStorage === undefined) {
+   if (!userDataFromLocalStorage) {
       return;
    }
 
@@ -22,19 +22,25 @@ const fillFormFields = () => {
 };
 
 
-const onFormELChange = event => {
-   const target = event.target;
-   const formElValue = target.value;
-   const formElName = target.name;
-
-   userData[formElName] = formElValue;
+const onFormELChange = ({target: { name, value}}) => {
+   userData[name] = value;
 
    localStorageApi.save('formData', userData);
 }
 
 
-const onContactFormElSubmit = event => {
+
+
+
+const onContactFormElSubmit = (event) => {
    event.preventDefault();
+
+   if (!contactFormEl.email.value || !contactFormEl.message.value) {
+      alert('ERROR');
+      return;
+    }
+
+
 
    localStorageApi.remove('formData');
    console.log(userData);
